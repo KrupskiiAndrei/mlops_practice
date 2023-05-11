@@ -7,8 +7,8 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 df_train = pd.DataFrame(data=X_train)
 df_train['target'] = y_train
-df_train.to_csv('lab1/train/data.csv', index=False)
+df_train.to_csv('train/data.csv', index=False)
 
 df_test = pd.DataFrame(data=X_test)
 df_test['target'] = y_test
-df_test.to_csv('lab1/test/data.csv', index=False)
+df_test.to_csv('test/data.csv', index=False)
