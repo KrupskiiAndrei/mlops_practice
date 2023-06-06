@@ -1,26 +1,30 @@
-from main import text_load
+import main
 
-
-def test_text_load_not_empty():
+# Тестирование функции с валидным текстовым вводом.
+def test_valid_text():
     input_text = "Hello world."
-    output_text = text_load(input_text)
-    assert output_text != ""
+    output_text = main.text_load(input_text)
+    # Убедимся, что текстовый вывод не пуст после удаления пробельных символов.
+    assert output_text.strip() != ""
 
-
-def test_text_load_correct_length():
+# Тестирование функции с проверкой длины выходного текста.
+def test_output_text_length():
     input_text = "Hello world."
     length = 20
-    output_text = text_load(input_text)
+    output_text = main.text_load(input_text)
+    # Проверка, что длина выходного текста не превышает заданную длину.
     assert len(output_text) <= length
 
-
-def test_text_load_not_int():
-    input_text = "123"
-    output_text = text_load(input_text)
+# Тестирование функции на ввод только числовых значений.
+def test_input_text_not_numeric():
+    numeric_text = "123"
+    output_text = main.text_load(numeric_text)
+    # Если ввод состоит только из чисел, функция должна вернуть сообщение о вводе текста.
     assert output_text == "Please enter some text."
 
-
-def test_text_load_empty_value():
-    input_text = ""
-    output_text = text_load(input_text)
+# Тестирование функции на пустой ввод.
+def test_empty_input_text():
+    empty_text = ""
+    output_text = main.text_load(empty_text)
+    # Если ввод пуст, функция должна вернуть сообщение о вводе текста.
     assert output_text == "Please enter some text."
