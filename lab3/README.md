@@ -1,3 +1,2 @@
-Project "Text Generation"
-Докер образ:
+Oбраз:
 https://hub.docker.com/r/krupskiiandrei/test/tags
