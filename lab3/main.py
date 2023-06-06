@@ -1,31 +1,28 @@
-from transformers import pipeline
-import streamlit as st
+from transformers import pipeline as pl
+from streamlit import cache, slider as sl, title as ttl, text_input as ti, button as btn, success as succ
 
 
-@st.cache_resource
-def load():
-    return pipeline("text-generation", model="openai-gpt")
+@cache
+def load_pipeline():
+    return pl("text-generation", model="openai-gpt")
 
 
-text_generator = load()
+text_gen_pipe = load_pipeline()
 
-st.title("Text generation application")
-enter_text = st.text_input("Enter the text", value="")
-length_text = st.slider("Text length", 10, 100, 10)
-iteration_text = st.slider("How many iterations", 1, 3, 1)
+ttl("Text generation application")
+user_prompt = ti("Enter the text", value="")
+text_len = sl("Text length", 10, 100, 10)
+num_iter = sl("How many iterations", 1, 3, 1)
 
 
-def text_load(enter_text):
-    if not enter_text:
+def gen_text(prompt):
+    if not prompt or str(prompt).isdigit():
         return "Please enter some text."
-    elif str(enter_text).isdigit():
-        return "Please enter some text."
-    else:
-        return text_generator(
-            enter_text, max_length=length_text, num_return_sequences=iteration_text
-        )
+    return text_gen_pipe(
+        prompt, max_length=text_len, num_return_sequences=num_iter
+    )
 
 
-if st.button("Output"):
-    output_text = text_load(enter_text)
-    st.success(output_text)
+if btn("Output"):
+    res_text = gen_text(user_prompt)
+    succ(res_text)
