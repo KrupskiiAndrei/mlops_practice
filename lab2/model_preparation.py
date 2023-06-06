@@ -3,9 +3,8 @@ from sklearn.linear_model import LinearRegression
 import pandas as pd
 
 # Загрузка данных для обучения модели
-X_train = pd.read_csv("train/X_train.csv")
+X_train = pd.read_csv("train/x_train.csv")
 y_train = pd.read_csv('train/y_train.csv')
-
 
 # Создание и обучение модели
 model = LinearRegression()
