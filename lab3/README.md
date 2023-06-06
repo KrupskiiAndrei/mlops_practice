@@ -1,2 +1,2 @@
 Oбраз:
-https://hub.docker.com/r/krupskiiandrei/test/tags
+https://hub.docker.com/r/krupskiandrei/test/tags
