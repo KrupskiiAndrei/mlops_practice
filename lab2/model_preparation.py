@@ -8,7 +8,7 @@ y_train = pd.read_csv('train/y_train.csv')
 
 # Создание и обучение модели
 model = LinearRegression()
-model.fit(X_train, y_train)
+model.fit(х_train, y_train)
 
 # Сохранение модели в файл с помощью pickle
 with open("trained_model.pkl", "wb") as f:
