@@ -1,28 +1,27 @@
-from transformers import pipeline as pl
-from streamlit import cache, slider as sl, title as ttl, text_input as ti, button as btn, success as succ
+from transformers import pipeline as transformer_pipeline
+from streamlit import cache as st_cache, slider as st_slider, title as st_title, text_input as st_text_input, button as st_button, success as st_success
 
+# Кэширование загрузки модели для повышения производительности
+@st_cache
+def get_model_pipeline():
+    return transformer_pipeline("text-generation", model="openai-gpt")
 
-@cache
-def load_pipeline():
-    return pl("text-generation", model="openai-gpt")
+# Получение модели
+model_pipeline = get_model_pipeline()
 
+# Настройка интерфейса
+st_title("Application for Text Generation")
+user_input = st_text_input("Type the text here", value="")
+output_length = st_slider("Desired output length", 10, 100, 10)
+num_repeats = st_slider("Number of iterations", 1, 3, 1)
 
-text_gen_pipe = load_pipeline()
-
-ttl("Text generation application")
-user_prompt = ti("Enter the text", value="")
-text_len = sl("Text length", 10, 100, 10)
-num_iter = sl("How many iterations", 1, 3, 1)
-
-
-def gen_text(prompt):
-    if not prompt or str(prompt).isdigit():
+# Функция для генерации текста
+def generate_text(user_input):
+    if not user_input or user_input.isdigit():
         return "Please enter some text."
-    return text_gen_pipe(
-        prompt, max_length=text_len, num_return_sequences=num_iter
-    )
+    return model_pipeline(user_input, max_length=output_length, num_return_sequences=num_repeats)
 
-
-if btn("Output"):
-    res_text = gen_text(user_prompt)
-    succ(res_text)
+# Обработка нажатия кнопки
+if st_button("Generate"):
+    output_text = generate_text(user_input)
+    st_success(output_text)
